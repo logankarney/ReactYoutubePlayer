@@ -2,7 +2,7 @@ import React from "react";
 import Login from "./Login";
 import Selection from "./Selection";
 import Add from "./Add";
-import "./App.css";
+import "../css/App.css";
 
 function App() {
   return (

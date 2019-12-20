@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { AppDB, AppAUTH } from '../db/db-init';
 import '../css/Login.css'
 
 class Login extends Component {
@@ -16,23 +17,44 @@ class Login extends Component {
             <div>
                 <h2>Login</h2>
                 <div id="container">
-                    <label className="label email-label">Email</label>
-                    <input name="userEmail" type="text" value={this.state.userEmail} onChange={(e) => this.updateFormData(e)} className="field email-field" />
-                    <label className="label pass-label">Password</label>
-                    <input name="userPassword" type="password" value={this.state.userPassword} onChange={(e) => this.updateFormData(e)} className="field pass-field" />
-                    <button onClick={() => this.doSignUp()} className="button signup-button">SignUp</button>
-                    <button onClick={() => this.doSignIn()} className="button signin-button">SignIn</button>
+                    <label className="email-label">Email</label>
+                    <input name="userEmail" type="text" value={this.state.userEmail} onChange={(e) => this.updateFormData(e)} className="right email-field" />
+                    <label className="pass-label">Password</label>
+                    <input name="userPassword" type="password" value={this.state.userPassword} onChange={(e) => this.updateFormData(e)} className="right pass-field" />
+                    <button onClick={() => this.doSignUp()} className="button signup-button">Sign Up</button>
+                    <button onClick={() => this.doSignIn()} className="button signin-button">Sign In</button>
+                    <button className="right anon-button">Login Anonymously</button>
                 </div>
             </div>
         );
     }
 
     doSignUp() {
-        alert(`Signed up ${this.state.userEmail}`)
+        AppAUTH.createUserWithEmailAndPassword(this.state.userEmail, this.state.userPassword)
+            .then(u => {
+                AppDB.ref("Users")
+                    .push()
+                    .set({
+                        email: this.state.userEmail
+                    });
+
+                this.doSignIn();
+            })
+            .catch(err => {
+                //TODO: Add error page
+                console.log("Error " + err);
+            });
     }
 
     doSignIn() {
-        alert(`Signed in ${this.state.userEmail}`)
+        AppAUTH.signInWithEmailAndPassword(this.state.userEmail, this.state.userPassword)
+            .then(u => {
+                this.props.history.push({ pathname: "/selection", state: { userEmail: this.state.userEmail } });
+            })
+            .catch(err => {
+                //TODO: Add error page
+                console.log("Error " + err);
+            });
     }
 
     updateFormData(ev) {

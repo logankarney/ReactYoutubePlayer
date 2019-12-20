@@ -4,12 +4,10 @@
   border-style: solid;
   border-width: medium;
   border-radius: 15px;
-  padding: 15px;
+  padding-left: 15px;
   padding-top: 10px;
-}
-
-.label {
-  text-align: left;
+  padding-right: 19px;
+  padding-bottom: 11px;
 }
 
 .email-label {
@@ -26,7 +24,7 @@
   grid-column-end: 2;
 }
 
-.field {
+.right {
   margin-top: 7px;
   margin-bottom: 7px;
 }
@@ -46,7 +44,7 @@
 }
 
 .button {
-  margin-top: 20px;
+  margin-top: 7px;
 }
 
 .signup-button {
@@ -60,5 +58,13 @@
   grid-row-start: 3;
   grid-row-end: 4;
   grid-column-start: 3;
+  grid-column-end: 4;
+}
+
+.anon-button {
+  margin-top: 30px;
+  grid-row-start: 4;
+  grid-row-end: 5;
+  grid-column-start: 2;
   grid-column-end: 4;
 }

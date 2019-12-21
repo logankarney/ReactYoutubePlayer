@@ -22,7 +22,6 @@ class Selection extends Component {
         return (
             <div>
                 <h2>Available Rooms</h2>
-                <button>Create</button>
                 <table>
                     <thead>
                         <tr>
@@ -30,15 +29,22 @@ class Selection extends Component {
                             <td>Owner</td>
                             <td>Persons</td>
                             <td>Password</td>
+                            <td>Join</td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Test</td>
-                            <td>UserName</td>
-                            <td>5/9</td>
-                            <td>No</td>
-                        </tr>
+
+                        {this.state.rooms.map((room) => {
+                            return (
+                                <tr key={room.mykey}>
+                                    <td>{room.name}</td>
+                                    <td>{room.owner}</td>
+                                    <td>{room.persons}</td>
+                                    <td>{room.password}</td>
+                                    <td><button>Join</button></td>
+                                </tr>
+                            )
+                        })}
                     </tbody>
                 </table>
 
